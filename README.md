@@ -17,11 +17,13 @@ How am I able to use jotai values without a provider?
 
 Showing 201-300 of 250 countries is confusing
 
-- [] Add next/previous page navigation with 10 results displayed by page and add page number to url
-- [] Display current page number and total pages
-- [] Add select to change entries-per-page: allowing [10, 20, 50, 100]
+- [x] Add next/previous page navigation with 10 results displayed by page and add page number to url
+- [x] Display current page number and total pages
+- [x] Add select to change entries-per-page: allowing [10, 20, 50, 100]
 
 Filter:
+
+handle loading and error states
 
 - [] Add continent select button (dropdown) that allows users to filter by continent and reset page to 0
 - [] Add currency select button (dropdown) that allows users to filter by continent and reset page to 0

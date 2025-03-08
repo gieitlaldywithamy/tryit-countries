@@ -12,6 +12,15 @@ export const GET_COUNTRIES = gql(`
   }
 `);
 
+export const GET_CONTINENTS = gql(`
+  query GetContinents {
+    continents {
+      code
+      name
+    }
+  }
+`);
+
 export const API_URL = "https://countries.trevorblades.com";
 
 export const PAGINATION_PAGE_SIZE_OPTIONS = [10, 20, 50, 100];

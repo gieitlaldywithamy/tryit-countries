@@ -1,16 +1,15 @@
 import { useQuery } from "@apollo/client";
-import { useEffect } from "react";
 import { GET_COUNTRIES } from "./constants";
+import { useAtom } from "jotai";
+import { filterAtom } from "./lib/FilterState";
 
-export const useGetCountries = (variables = {}, options = {}) => {
+export const useGetCountries = () => {
+  const [filterValue] = useAtom(filterAtom);
+
   const { loading, error, data, refetch } = useQuery(GET_COUNTRIES, {
-    variables,
-    ...options,
+    variables: { filter: filterValue },
+    // ...options,
   });
-
-  useEffect(() => {
-    refetch(variables);
-  }, [variables, refetch]);
 
   return { loading, error, data, refetch };
 };
