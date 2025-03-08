@@ -1,33 +1,18 @@
 import { useAtom } from "jotai";
 import { useCallback } from "react";
-import { perPageAtom, PerPageOptions } from "../lib/PaginationState";
+import {
+  perPageAtomWithUpdateSearchParams,
+  PerPageOptions,
+} from "../lib/PaginationState";
 import { PAGINATION_PAGE_SIZE_OPTIONS } from "../constants";
 
-const updateURLSearchParams = ({
-  page,
-  perPage,
-}: {
-  page: number;
-  perPage: PerPageOptions;
-}) => {
-  const params = new URLSearchParams(window.location.search);
-  params.set("page", page.toString());
-  params.set("perPage", perPage.toString());
-  window.history.pushState(
-    {},
-    "",
-    `${window.location.pathname}?${params.toString()}`
-  );
-};
-
 export const PageSizeSelector = () => {
-  const [perPage, setPerPage] = useAtom(perPageAtom);
+  const [perPage, setPerPage] = useAtom(perPageAtomWithUpdateSearchParams);
 
   const handlePageSizeChange = useCallback(
     (event: React.ChangeEvent<HTMLSelectElement>) => {
       const newPerPage = parseInt(event.target.value, 10) as PerPageOptions;
       setPerPage(newPerPage);
-      updateURLSearchParams({ page: 1, perPage: newPerPage });
     },
     [setPerPage]
   );
@@ -44,7 +29,9 @@ export const PageSizeSelector = () => {
         value={perPage}
       >
         {PAGINATION_PAGE_SIZE_OPTIONS.map((pageSize) => (
-          <option value={pageSize}>{pageSize}</option>
+          <option key={pageSize} value={pageSize}>
+            {pageSize}
+          </option>
         ))}
       </select>
     </div>

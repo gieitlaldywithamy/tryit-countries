@@ -11,6 +11,12 @@ Notes: Recoil doesn't seem to support React 19 so chose Jotai (similar atomic st
 
 Bug: User can load page with a value that is not constrained to PAGINATION_PAGE_SIZE_OPTIONS
 
+To Find Out: can I update URLSearchParams WITHIN an atom? must be able to
+
+How am I able to use jotai values without a provider?
+
+Showing 201-300 of 250 countries is confusing
+
 - [] Add next/previous page navigation with 10 results displayed by page and add page number to url
 - [] Display current page number and total pages
 - [] Add select to change entries-per-page: allowing [10, 20, 50, 100]

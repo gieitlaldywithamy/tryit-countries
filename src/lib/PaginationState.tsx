@@ -1,5 +1,6 @@
 import { atom } from "jotai";
 import { PAGINATION_PAGE_SIZE_OPTIONS } from "../constants";
+import { updateURLSearchParams } from "../utils/updateURLSearchParams";
 
 const getQueryParams = () => {
   const params = new URLSearchParams(window.location.search);
@@ -12,6 +13,31 @@ const getQueryParams = () => {
   };
 };
 
-export const currentPageAtom = atom(getQueryParams().page);
-export const perPageAtom = atom(getQueryParams().pageSize);
+export const currentPageAtom = atom<number>(getQueryParams().page);
+export const perPageAtom = atom<PerPageOptions>(getQueryParams().pageSize);
 export type PerPageOptions = (typeof PAGINATION_PAGE_SIZE_OPTIONS)[number];
+
+export const perPageAtomWithUpdateSearchParams = atom(
+  (get) => get(perPageAtom),
+  (_, set, newPerPage: PerPageOptions) => {
+    set(perPageAtom, newPerPage);
+    set(currentPageAtom, 1);
+
+    updateURLSearchParams({
+      page: 1,
+      perPage: newPerPage,
+    });
+  }
+);
+
+export const currentPageAtomWithUpdateSearchParams = atom(
+  (get) => get(currentPageAtom),
+  (get, set, newCurrentPage: number) => {
+    set(currentPageAtom, newCurrentPage);
+
+    updateURLSearchParams({
+      page: newCurrentPage,
+      perPage: get(perPageAtom),
+    });
+  }
+);

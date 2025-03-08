@@ -1,7 +1,8 @@
 import { useAtomValue } from "jotai";
 import { GetCountriesQuery } from "../__generated__/graphql";
-import { perPageAtom } from "../lib/PaginationState";
+import { currentPageAtom, perPageAtom } from "../lib/PaginationState";
 import { PageSizeSelector } from "./PageSizeSelector";
+import Pagination from "./Pagination";
 
 const TableHeader = ({ columns }: { columns: string[] }) => {
   return (
@@ -31,13 +32,19 @@ export const CountryTable = ({
 }) => {
   const countryCount = countries.length;
   const perPageCount = useAtomValue(perPageAtom);
+  const currentPage = useAtomValue(currentPageAtom);
+
+  const start = (currentPage - 1) * perPageCount;
+  const end = start + perPageCount;
+
+  const countriesForPage = countries.slice(start, end);
 
   return (
-    <div className="overflow-x-auto bg-white shadow-md rounded-lg">
+    <div className="overflow-x-auto bg-white shadow-md rounded-lg p-4">
       {countryCount > 0 && (
         <div className="p-4 text-gray-700 text-sm font-medium text-center flex items-center justify-between">
           <span>
-            {/* Showing <strong>{start + 1}</strong> - <strong>{end}</strong> of{" "} */}
+            Showing <strong>{start + 1}</strong> - <strong>{end}</strong> of{" "}
             <strong>{countryCount}</strong> countries found!
           </span>
 
@@ -49,18 +56,16 @@ export const CountryTable = ({
         <TableHeader columns={["code", "name", "capital", "currency"]} />
 
         <tbody className="bg-white divide-y divide-gray-200">
-          {countries
-            .slice(0, perPageCount)
-            .map(({ code, name, emoji, capital, currency }) => (
-              <tr key={code}>
-                <TableCell>{code}</TableCell>
-                <TableCell>
-                  {name} {emoji}
-                </TableCell>
-                <TableCell>{capital}</TableCell>
-                <TableCell>{currency}</TableCell>
-              </tr>
-            ))}
+          {countriesForPage.map(({ code, name, emoji, capital, currency }) => (
+            <tr key={code}>
+              <TableCell>{code}</TableCell>
+              <TableCell>
+                {name} {emoji}
+              </TableCell>
+              <TableCell>{capital}</TableCell>
+              <TableCell>{currency}</TableCell>
+            </tr>
+          ))}
         </tbody>
       </table>
       {countries.length === 0 && (
@@ -69,6 +74,7 @@ export const CountryTable = ({
           <p className="text-sm">Try adjusting your filters!</p>
         </div>
       )}
+      <Pagination totalPages={Math.ceil(countries.length / perPageCount)} />
     </div>
   );
 };
