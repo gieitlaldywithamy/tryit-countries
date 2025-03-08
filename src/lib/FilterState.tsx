@@ -3,10 +3,11 @@ import {
   CountryFilterInput,
   StringQueryOperatorInput,
 } from "../__generated__/graphql";
+import { currentPageAtom } from "./PaginationState";
 
-export const continentFilterAtom = atom<string>("");
+export const continentAtom = atom<string>("");
 export const filterAtom = atom((get) => {
-  const continentFilter = get(continentFilterAtom);
+  const continentFilter = get(continentAtom);
   const continentFilterValue: StringQueryOperatorInput = continentFilter
     ? {
         eq: continentFilter,
@@ -19,3 +20,11 @@ export const filterAtom = atom((get) => {
     : {};
   return filterValue;
 });
+
+export const continentFilterAtom = atom(
+  (get) => get(continentAtom),
+  (_, set, newContinent: string) => {
+    set(continentAtom, newContinent);
+    set(currentPageAtom, 1);
+  }
+);
