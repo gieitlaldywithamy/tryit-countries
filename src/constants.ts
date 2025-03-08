@@ -21,6 +21,14 @@ export const GET_CONTINENTS = gql(`
   }
 `);
 
+export const GET_CURRENCIES = gql(`
+  query GetCurrencies {
+    countries {
+      currency
+    }
+  }
+`);
+
 export const API_URL = "https://countries.trevorblades.com";
 
 export const PAGINATION_PAGE_SIZE_OPTIONS = [10, 20, 50, 100];

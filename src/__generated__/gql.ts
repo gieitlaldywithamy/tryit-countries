@@ -16,10 +16,12 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
 type Documents = {
     "\n  query GetCountries($filter: CountryFilterInput) {\n    countries(filter: $filter) {\n      code\n      name\n      capital\n      currency\n      emoji\n    }\n  }\n": typeof types.GetCountriesDocument,
     "\n  query GetContinents {\n    continents {\n      code\n      name\n    }\n  }\n": typeof types.GetContinentsDocument,
+    "\n  query GetCurrencies {\n    countries {\n      currency\n    }\n  }\n": typeof types.GetCurrenciesDocument,
 };
 const documents: Documents = {
     "\n  query GetCountries($filter: CountryFilterInput) {\n    countries(filter: $filter) {\n      code\n      name\n      capital\n      currency\n      emoji\n    }\n  }\n": types.GetCountriesDocument,
     "\n  query GetContinents {\n    continents {\n      code\n      name\n    }\n  }\n": types.GetContinentsDocument,
+    "\n  query GetCurrencies {\n    countries {\n      currency\n    }\n  }\n": types.GetCurrenciesDocument,
 };
 
 /**
@@ -44,6 +46,10 @@ export function gql(source: "\n  query GetCountries($filter: CountryFilterInput)
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function gql(source: "\n  query GetContinents {\n    continents {\n      code\n      name\n    }\n  }\n"): (typeof documents)["\n  query GetContinents {\n    continents {\n      code\n      name\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  query GetCurrencies {\n    countries {\n      currency\n    }\n  }\n"): (typeof documents)["\n  query GetCurrencies {\n    countries {\n      currency\n    }\n  }\n"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};
