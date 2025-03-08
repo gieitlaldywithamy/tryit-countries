@@ -24,20 +24,21 @@ Showing 201-300 of 250 countries is confusing
 Filter:
 
 handle loading and error states
+maybe make dropdown reusable
 
 - [] Add continent select button (dropdown) that allows users to filter by continent and reset page to 0
 - [] Add currency select button (dropdown) that allows users to filter by continent and reset page to 0
 - [] Add text input search for country code (exact match)
 - [] Add text input search (regex for overlap) on name
-
-Create Interactive Country
-Data Table Component
-Develop a responsive data table component that
-displays and manages country information fetched from
-the GraphQL endpoint. The table should provide
-comprehensive filtering, pagination, and search
-capabilities while following our established tech stack
-requirements.
+  // set initial parameters
+  Create Interactive Country
+  Data Table Component
+  Develop a responsive data table component that
+  displays and manages country information fetched from
+  the GraphQL endpoint. The table should provide
+  comprehensive filtering, pagination, and search
+  capabilities while following our established tech stack
+  requirements.
 
 Technical Stack
 
