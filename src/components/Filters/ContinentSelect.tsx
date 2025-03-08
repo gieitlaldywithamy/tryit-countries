@@ -1,6 +1,6 @@
 import { useSuspenseQuery } from "@apollo/client";
 import { GET_CONTINENTS } from "../../constants";
-import { continentFilterAtom } from "../../lib/FilterState";
+import { continentFilterAtom } from "../../lib/filterAtoms";
 import { useAtom } from "jotai";
 import { ChangeEvent, Suspense } from "react";
 import { LoadingSpinner } from "../../LoadingSpinner";

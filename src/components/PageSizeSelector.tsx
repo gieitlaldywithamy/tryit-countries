@@ -19,7 +19,7 @@ export const PageSizeSelector = () => {
 
   return (
     <div className="">
-      <label htmlFor="pageSize" className="font-medium text-gray-700 mr-2">
+      <label htmlFor="pageSize" className="mr-2">
         Countries per page
       </label>
       <select

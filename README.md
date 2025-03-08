@@ -25,6 +25,11 @@ Filter:
 
 handle loading and error states
 maybe make dropdown reusable
+change import alias
+
+Add clear filters
+
+there's a jotai recipe for deferring value idea for text inputs
 
 - [] Add continent select button (dropdown) that allows users to filter by continent and reset page to 0
 - [] Add currency select button (dropdown) that allows users to filter by continent and reset page to 0

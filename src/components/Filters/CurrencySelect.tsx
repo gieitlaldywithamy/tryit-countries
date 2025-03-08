@@ -1,8 +1,8 @@
-import { useLazyQuery, useQuery } from "@apollo/client";
-import { GET_CONTINENTS, GET_CURRENCIES } from "../../constants";
-import { ChangeEvent, useEffect, useMemo } from "react";
+import { useQuery } from "@apollo/client";
+import { GET_CURRENCIES } from "../../constants";
+import { ChangeEvent, useMemo } from "react";
 import { GetCurrenciesQuery } from "../../__generated__/graphql";
-import { currencyFilterAtom } from "../../lib/FilterState";
+import { currencyFilterAtom } from "../../lib/filterAtoms";
 import { useAtom } from "jotai";
 
 const getFlatAndUniqueCurrencies = (
@@ -41,7 +41,7 @@ export const CurrencySelect = () => {
   };
 
   return (
-    <div className="w-3/4 text-sm text-gray-700">
+    <div className="w-1/3 text-sm text-gray-700">
       <select
         id="continentFilter"
         className="w-full p-4 rounded-md border-gray-300 shadow-sm"

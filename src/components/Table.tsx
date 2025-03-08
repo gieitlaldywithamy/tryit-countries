@@ -42,11 +42,12 @@ export const CountryTable = ({
   return (
     <div className="overflow-x-auto bg-white shadow-md rounded-lg p-4">
       {countryCount > 0 && (
-        <div className="p-4 text-gray-700 text-sm font-medium text-center flex items-center justify-between">
-          <span>
-            Showing <strong>{start + 1}</strong> - <strong>{end}</strong> of{" "}
+        <div className="p-2 md:p-4 text-gray-700 text-sm font-medium text-center flex items-center justify-between">
+          <div className="text-left">
+            Showing <strong>{start + 1}</strong> -{" "}
+            <strong>{Math.min(end, countries.length)}</strong> of{" "}
             <strong>{countryCount}</strong> countries found!
-          </span>
+          </div>
 
           <PageSizeSelector />
         </div>

@@ -1,7 +1,7 @@
 import { useQuery, useSuspenseQuery } from "@apollo/client";
 import { GET_COUNTRIES } from "./constants";
 import { useAtom } from "jotai";
-import { filterAtom } from "./lib/FilterState";
+import { filterAtom } from "./lib/filterAtoms";
 
 export const useGetCountries = () => {
   const [filterValue] = useAtom(filterAtom);
