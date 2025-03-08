@@ -2,10 +2,14 @@
 
 ## TODO
 
-- [] Fetch countries and and display data in a table with name, code, continent and currency
+- [x] Fetch countries and and display data in a table with name, code, continent and currency
 - [] Show total number of search results found
 
 Pagination:
+
+Notes: Recoil doesn't seem to support React 19 so chose Jotai (similar atomic state management system) instead.
+
+Bug: User can load page with a value that is not constrained to PAGINATION_PAGE_SIZE_OPTIONS
 
 - [] Add next/previous page navigation with 10 results displayed by page and add page number to url
 - [] Display current page number and total pages

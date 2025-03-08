@@ -13,6 +13,7 @@
   "dependencies": {
     "@apollo/client": "^3.13.3",
     "@tailwindcss/vite": "^4.0.12",
+    "jotai": "^2.12.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-error-boundary": "^5.0.0",
