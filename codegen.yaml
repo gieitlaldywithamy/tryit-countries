@@ -1,6 +1,0 @@
-# codegen.yaml
-schema: https://countries.trevorblades.com/
-generates:
-  ./src/types.ts:
-    plugins:
-      - typescript
