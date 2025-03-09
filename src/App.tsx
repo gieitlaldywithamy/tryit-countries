@@ -1,8 +1,8 @@
-import { ContinentSelect } from "./components/Filters/ContinentSelect";
-import { CountryCode } from "./components/Filters/CountryCode";
-import { CountryNameFilter } from "./components/Filters/CountryName";
-import { CurrencySelect } from "./components/Filters/CurrencySelect";
-import { CountriesContainer } from "./containers/CountriesContainer";
+import { ContinentSelect } from "./features/Filters/ContinentSelect";
+import { CountryCode } from "./features/Filters/CountryCode";
+import { CountryNameFilter } from "./features/Filters/CountryName";
+import { CurrencySelect } from "./features/Filters/CurrencySelect";
+import { CountriesTableContainer } from "./features/CountryTable/CountryTableContainer";
 
 function App() {
   return (
@@ -16,7 +16,7 @@ function App() {
         <CountryCode />
         <CountryNameFilter />
       </div>
-      <CountriesContainer />
+      <CountriesTableContainer />
     </div>
   );
 }

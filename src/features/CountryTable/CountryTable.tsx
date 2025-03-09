@@ -1,29 +1,10 @@
 import { useAtomValue } from "jotai";
-import { GetCountriesQuery } from "../__generated__/graphql";
-import { currentPageAtom, perPageAtom } from "../lib/PaginationState";
-import { PageSizeSelector } from "./PageSizeSelector";
-import Pagination from "./Pagination";
-
-const TableHeader = ({ columns }: { columns: string[] }) => {
-  return (
-    <thead>
-      <tr className="bg-gray-50">
-        {columns.map((column, index) => (
-          <th
-            key={index}
-            className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-          >
-            {column}
-          </th>
-        ))}
-      </tr>
-    </thead>
-  );
-};
-
-const TableCell = ({ children }: { children: React.ReactNode }) => (
-  <td className="px-6 py-4 whitespace-nowrap">{children}</td>
-);
+import { GetCountriesQuery } from "../../__generated__/graphql";
+import { currentPageAtom, perPageAtom } from "../../lib/paginationAtoms";
+import { PageSizeSelector } from "./Pagination/PageSizeSelector";
+import { TableHeader } from "../../components/TableHeader";
+import { TableCell } from "../../components/TableCell";
+import { PrevNextControls } from "./Pagination/PrevNextControls";
 
 export const CountryTable = ({
   countries,
@@ -69,13 +50,16 @@ export const CountryTable = ({
           ))}
         </tbody>
       </table>
+      {/* //TOxDO ADD reset filters button */}
       {countries.length === 0 && (
         <div className="text-gray-500 text-center py-6">
           <p className="text-lg font-semibold">No countries found</p>
           <p className="text-sm">Try adjusting your filters!</p>
         </div>
       )}
-      <Pagination totalPages={Math.ceil(countries.length / perPageCount)} />
+      <PrevNextControls
+        totalPages={Math.ceil(countries.length / perPageCount)}
+      />
     </div>
   );
 };

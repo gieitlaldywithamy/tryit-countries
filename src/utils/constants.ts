@@ -1,4 +1,4 @@
-import { gql } from "../src/__generated__/gql";
+import { gql } from "../__generated__/gql";
 
 export const GET_COUNTRIES = gql(`
   query GetCountries($filter: CountryFilterInput) {
@@ -32,3 +32,5 @@ export const GET_CURRENCIES = gql(`
 export const API_URL = "https://countries.trevorblades.com";
 
 export const PAGINATION_PAGE_SIZE_OPTIONS = [10, 20, 50, 100];
+
+export type PerPageOptions = (typeof PAGINATION_PAGE_SIZE_OPTIONS)[number];

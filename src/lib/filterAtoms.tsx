@@ -3,7 +3,15 @@ import {
   CountryFilterInput,
   StringQueryOperatorInput,
 } from "../__generated__/graphql";
-import { currentPageAtomWithUpdateSearchParams } from "./PaginationState";
+import { currentPageAtomWithUpdateSearchParams } from "./paginationAtoms";
+import { capitalizeFirstLetter } from "../utils/capitaliseFirstLetter";
+
+type FilterConfig = {
+  atom: Atom<string>;
+  field: keyof CountryFilterInput;
+  transform?: (value: string) => string;
+  queryOperator?: (value: string) => StringQueryOperatorInput;
+};
 
 const createFilterAtom = (initialValue: string) => {
   const baseAtom = atom<string>(initialValue);
@@ -12,7 +20,7 @@ const createFilterAtom = (initialValue: string) => {
     (get) => get(baseAtom),
     (_, set, newValue: string) => {
       set(baseAtom, newValue);
-      set(currentPageAtomWithUpdateSearchParams, 1); // Reset pagination
+      set(currentPageAtomWithUpdateSearchParams, 1);
     }
   );
 
@@ -29,17 +37,6 @@ export const { baseAtom: countryCodeAtom, filterAtom: countryCodeFilterAtom } =
 export const { baseAtom: countryNameAtom, filterAtom: countryNameFilterAtom } =
   createFilterAtom("");
 
-function capitalizeFirstLetter(val?: string) {
-  if (!val) return "";
-  return String(val).charAt(0).toUpperCase() + String(val).slice(1);
-}
-
-type FilterConfig = {
-  atom: Atom<string>;
-  field: keyof CountryFilterInput;
-  transform?: (value: string) => string;
-  queryOperator?: (value: string) => StringQueryOperatorInput;
-};
 // type this
 export const filterConfigs: FilterConfig[] = [
   {

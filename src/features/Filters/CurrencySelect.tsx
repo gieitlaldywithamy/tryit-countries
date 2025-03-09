@@ -1,5 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { GET_CURRENCIES } from "../../constants";
+import { GET_CURRENCIES } from "../../utils/constants";
 import { ChangeEvent, useMemo } from "react";
 import { GetCurrenciesQuery } from "../../__generated__/graphql";
 import { currencyFilterAtom } from "../../lib/filterAtoms";

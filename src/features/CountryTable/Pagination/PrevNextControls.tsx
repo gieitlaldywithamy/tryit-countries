@@ -1,12 +1,7 @@
 import { useAtom } from "jotai";
-import React from "react";
-import { currentPageAtomWithUpdateSearchParams } from "../lib/PaginationState";
+import { currentPageAtomWithUpdateSearchParams } from "../../../lib/paginationAtoms";
 
-interface PaginationProps {
-  totalPages: number;
-}
-
-const Pagination: React.FC<PaginationProps> = ({ totalPages }) => {
+export const PrevNextControls = ({ totalPages }: { totalPages: number }) => {
   const [currentPage, setCurrentPage] = useAtom(
     currentPageAtomWithUpdateSearchParams
   );
@@ -27,7 +22,7 @@ const Pagination: React.FC<PaginationProps> = ({ totalPages }) => {
         Prev
       </button>
       <span className="mx-2">
-        Page {currentPage} of {totalPages}
+        Page {currentPage <= totalPages ? currentPage : 0} of {totalPages}
       </span>
       <button
         onClick={() => handlePageChange(currentPage + 1)}
@@ -39,5 +34,3 @@ const Pagination: React.FC<PaginationProps> = ({ totalPages }) => {
     </div>
   );
 };
-
-export default Pagination;

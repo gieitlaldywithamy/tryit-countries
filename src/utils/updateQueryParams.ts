@@ -1,6 +1,6 @@
-import { PerPageOptions } from "../lib/PaginationState";
+import { PerPageOptions } from "./constants";
 
-export const updateURLSearchParams = ({
+export const updateQueryParams = ({
   page,
   perPage,
 }: {

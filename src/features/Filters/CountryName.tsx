@@ -1,7 +1,7 @@
 import { useAtom } from "jotai";
 import { ChangeEvent, useEffect, useState } from "react";
 import { countryNameFilterAtom } from "../../lib/filterAtoms";
-import { useDebounce } from "../../lib/useDebounce";
+import { useDebounce } from "../../utils/useDebounce";
 
 export const CountryNameFilter = () => {
   // confusing name here: this are only to keep the input from not lagging; im tired!
