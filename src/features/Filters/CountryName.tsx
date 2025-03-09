@@ -17,9 +17,10 @@ export const CountryNameFilter = () => {
   useEffect(() => {
     setCountryNameFilter(debouncedValue);
   }, [debouncedValue, setCountryNameFilter]);
+
   return (
     <input
-      type="text"
+      type="search"
       placeholder="Country Name"
       value={localCountryName}
       onBlur={handleFilterChange}

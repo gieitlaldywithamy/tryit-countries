@@ -1,4 +1,4 @@
-import { Atom, atom } from "jotai";
+import { Atom, atom, useSetAtom } from "jotai";
 import {
   CountryFilterInput,
   StringQueryOperatorInput,
@@ -77,3 +77,19 @@ export const filterAtom = atom((get) => {
 
   return filterValue;
 });
+
+export const useResetFilters = () => {
+  const setContinent = useSetAtom(continentAtom);
+  const setCurrency = useSetAtom(currencyAtom);
+  const setCountryCode = useSetAtom(countryCodeAtom);
+  const setCountryName = useSetAtom(countryNameAtom);
+  const setCurrentPage = useSetAtom(currentPageAtomWithUpdateSearchParams);
+
+  return () => {
+    setContinent("");
+    setCurrency("");
+    setCountryCode("");
+    setCountryName("");
+    setCurrentPage(1);
+  };
+};

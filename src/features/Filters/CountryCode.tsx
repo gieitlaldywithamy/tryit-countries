@@ -19,7 +19,7 @@ export const CountryCode = () => {
   }, [debouncedValue, setCountryCodeFilter]);
   return (
     <input
-      type="text"
+      type="search"
       placeholder="Country Code"
       value={localCountryCode}
       onBlur={handleFilterChange}

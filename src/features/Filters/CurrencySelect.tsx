@@ -1,9 +1,10 @@
-import { useQuery } from "@apollo/client";
+import { useSuspenseQuery } from "@apollo/client";
 import { GET_CURRENCIES } from "../../utils/constants";
-import { ChangeEvent, useMemo } from "react";
+import { Suspense, useMemo } from "react";
 import { GetCurrenciesQuery } from "../../__generated__/graphql";
 import { currencyFilterAtom } from "../../lib/filterAtoms";
-import { useAtom } from "jotai";
+import { LoadingSpinner } from "../../components/LoadingSpinner";
+import { Dropdown } from "../../components/Dropdown";
 
 const getFlatAndUniqueCurrencies = (
   currencies: GetCurrenciesQuery["countries"]
@@ -22,39 +23,33 @@ const getFlatAndUniqueCurrencies = (
   return Array.from(uniqueStrs);
 };
 
-// should be a lazy query
 export const CurrencySelect = () => {
-  const [currentCurrency, setCurrentCurrency] = useAtom(currencyFilterAtom);
-  // make sure this is cached!!
-  const { loading, error, data } = useQuery(GET_CURRENCIES);
-  console.log({ error });
+  const { error, data } = useSuspenseQuery(GET_CURRENCIES);
+
   const currencies = useMemo(() => {
-    if (loading || !data?.countries) {
+    if (!data?.countries) {
       return [];
     }
     return getFlatAndUniqueCurrencies(data?.countries);
-  }, [data?.countries, loading]);
+  }, [data?.countries]);
 
-  const handleFilterChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    const newCurrency = event.target.value;
-    setCurrentCurrency(newCurrency);
-  };
+  if (error) {
+    throw new Error("Failed to load filters");
+  }
 
   return (
-    <div className="w-1/3 text-sm text-gray-700">
-      <select
-        id="continentFilter"
-        className="w-full p-4 rounded-md border-gray-300 shadow-sm"
-        onChange={handleFilterChange}
-        value={currentCurrency}
-      >
-        <option value="">Currency</option>
-        {currencies?.map((currency) => (
-          <option key={currency} value={currency}>
-            {currency}
-          </option>
-        ))}
-      </select>
-    </div>
+    <Suspense fallback={<LoadingSpinner />}>
+      <Dropdown
+        id={"continentFilter"}
+        options={currencies.map((currency) => ({
+          value: currency,
+          key: currency,
+          label: currency,
+        }))}
+        defaultValue={""}
+        defaultLabel={"All Currencies"}
+        atom={currencyFilterAtom}
+      />
+    </Suspense>
   );
 };

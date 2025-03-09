@@ -1,13 +1,16 @@
 import { useAtom } from "jotai";
 import { perPageAtomWithUpdateSearchParams } from "../lib/paginationAtoms";
 import { useCallback } from "react";
+import { useResetFilters } from "../lib/filterAtoms";
 
 export const ErrorMessage = ({ error }: { error?: string }) => {
   const [, resetPerPageAndPage] = useAtom(perPageAtomWithUpdateSearchParams);
-  // TOxDO clear all filters here!
+  const clearFilters = useResetFilters();
+
   const onClick = useCallback(() => {
     resetPerPageAndPage(10);
-  }, [resetPerPageAndPage]);
+    clearFilters();
+  }, [clearFilters, resetPerPageAndPage]);
 
   if (!error) {
     return null;
