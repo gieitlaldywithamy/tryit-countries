@@ -5,6 +5,7 @@ import {
 } from "../__generated__/graphql";
 import { setCurrentPageAtom } from "./paginationAtoms";
 import { capitalizeFirstLetter } from "../utils/capitaliseFirstLetter";
+import atomWithDebounce from "./debouncedAtom";
 
 type FilterConfig = {
   atom: Atom<string>;
@@ -28,8 +29,15 @@ const createFilterAtom = () => {
 
 export const continentFilterAtom = createFilterAtom();
 export const currencyFilterAtom = createFilterAtom();
-export const countryCodeFilterAtom = createFilterAtom();
-export const countryNameFilterAtom = createFilterAtom();
+
+export const {
+  currentValueAtom: countryCodeFilterDisplay,
+  debouncedValueAtom: countryCodeFilterAtom,
+} = atomWithDebounce("");
+export const {
+  currentValueAtom: countryNameFilterDisplay,
+  debouncedValueAtom: countryNameFilterAtom,
+} = atomWithDebounce("");
 
 const filterConfigs: FilterConfig[] = [
   { atom: continentFilterAtom, field: "continent" },

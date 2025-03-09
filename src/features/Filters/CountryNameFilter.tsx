@@ -1,23 +1,19 @@
 import { useAtom } from "jotai";
-import { ChangeEvent, useEffect, useState } from "react";
-import { countryNameFilterAtom } from "../../lib/filterAtoms";
-import { useDebounce } from "../../utils/useDebounce";
+import { ChangeEvent } from "react";
+import {
+  countryNameFilterAtom,
+  countryNameFilterDisplay,
+} from "../../lib/filterAtoms";
 
 export const CountryNameFilter = () => {
   // confusing name here: this are only to keep the input from not lagging; im tired!
-  const [localCountryName, setLocalCountryName] = useState("");
+  const [localCountryName] = useAtom(countryNameFilterDisplay);
   const [, setCountryNameFilter] = useAtom(countryNameFilterAtom);
-
-  const debouncedValue = useDebounce(localCountryName);
 
   const handleFilterChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newCountryCode = event.target.value;
-    setLocalCountryName(newCountryCode);
+    setCountryNameFilter(newCountryCode);
   };
-
-  useEffect(() => {
-    setCountryNameFilter(debouncedValue);
-  }, [debouncedValue, setCountryNameFilter]);
 
   return (
     <input
