@@ -1,15 +1,17 @@
 import { Suspense } from "react";
-import { ErrorMessage } from "../../components/ErrorMessage";
+import { CountryTable } from "./CountryTable";
 import { LoadingSpinner } from "../../components/LoadingSpinner";
 import { useGetCountries } from "./useGetCountries";
-import { CountryTable } from "./CountryTable";
 
 export const CountriesTableContainer = () => {
   const { error, data } = useGetCountries();
+
+  if (error) {
+    throw new Error("Failed to load countries");
+  }
   return (
     <Suspense fallback={<LoadingSpinner />}>
       <CountryTable countries={data.countries} />
-      <ErrorMessage error={error?.message} />
     </Suspense>
   );
 };

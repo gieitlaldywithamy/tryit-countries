@@ -1,5 +1,5 @@
 import { CodegenConfig } from "@graphql-codegen/cli";
-import { API_URL } from "./src/constants.ts";
+import { API_URL } from "./src/utils/constants";
 
 const config: CodegenConfig = {
   schema: API_URL,
