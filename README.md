@@ -1,3 +1,7 @@
+## Hosted
+
+[Vercel link](https://tryit-countries.vercel.app/) (email link is no longer valid!)
+
 ## To run
 
 First, run the development server (using package manager of choice! replace npm with pnpm or yarn):
