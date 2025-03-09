@@ -3,12 +3,13 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { countryCodeFilterAtom } from "../../lib/filterAtoms";
 import { useDebounce } from "../../utils/useDebounce";
 
-export const CountryCode = () => {
-  // confusing name here: this are only to keep the input from not lagging; im tired!
+export const CountryCodeFilter = () => {
+  // confusing name here: to keep the input from not lagging;
   const [localCountryCode, setLocalCountryCode] = useState("");
   const [, setCountryCodeFilter] = useAtom(countryCodeFilterAtom);
 
   const debouncedValue = useDebounce(localCountryCode);
+
   const handleFilterChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newCountryCode = event.target.value;
     setLocalCountryCode(newCountryCode);
@@ -17,8 +18,11 @@ export const CountryCode = () => {
   useEffect(() => {
     setCountryCodeFilter(debouncedValue);
   }, [debouncedValue, setCountryCodeFilter]);
+
   return (
     <input
+      id="search-country-codes"
+      name="search-country-codes"
       type="search"
       placeholder="Country Code"
       value={localCountryCode}

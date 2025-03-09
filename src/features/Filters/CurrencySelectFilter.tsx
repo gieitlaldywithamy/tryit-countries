@@ -23,7 +23,7 @@ const getFlatAndUniqueCurrencies = (
   return Array.from(uniqueStrs);
 };
 
-export const CurrencySelect = () => {
+export const CurrencySelectFilter = () => {
   const { error, data } = useSuspenseQuery(GET_CURRENCIES);
 
   const currencies = useMemo(() => {
@@ -40,14 +40,14 @@ export const CurrencySelect = () => {
   return (
     <Suspense fallback={<LoadingSpinner />}>
       <Dropdown
-        id={"continentFilter"}
+        id="currency-filter"
         options={currencies.map((currency) => ({
           value: currency,
           key: currency,
           label: currency,
         }))}
-        defaultValue={""}
-        defaultLabel={"All Currencies"}
+        defaultValue=""
+        defaultLabel="All Currencies"
         atom={currencyFilterAtom}
       />
     </Suspense>

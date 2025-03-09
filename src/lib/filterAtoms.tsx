@@ -3,7 +3,7 @@ import {
   CountryFilterInput,
   StringQueryOperatorInput,
 } from "../__generated__/graphql";
-import { currentPageAtomWithUpdateSearchParams } from "./paginationAtoms";
+import { setCurrentPageAtom } from "./paginationAtoms";
 import { capitalizeFirstLetter } from "../utils/capitaliseFirstLetter";
 
 type FilterConfig = {
@@ -13,46 +13,30 @@ type FilterConfig = {
   queryOperator?: (value: string) => StringQueryOperatorInput;
 };
 
-const createFilterAtom = (initialValue: string) => {
-  const baseAtom = atom<string>(initialValue);
-
+const createFilterAtom = () => {
+  const baseAtom = atom<string>("");
   const filterAtom = atom(
     (get) => get(baseAtom),
     (_, set, newValue: string) => {
       set(baseAtom, newValue);
-      set(currentPageAtomWithUpdateSearchParams, 1);
+      set(setCurrentPageAtom, 1);
     }
   );
 
-  return { baseAtom, filterAtom };
+  return filterAtom;
 };
 
-// are these any different ???
-export const { baseAtom: continentAtom, filterAtom: continentFilterAtom } =
-  createFilterAtom("");
-export const { baseAtom: currencyAtom, filterAtom: currencyFilterAtom } =
-  createFilterAtom("");
-export const { baseAtom: countryCodeAtom, filterAtom: countryCodeFilterAtom } =
-  createFilterAtom("");
-export const { baseAtom: countryNameAtom, filterAtom: countryNameFilterAtom } =
-  createFilterAtom("");
+export const continentFilterAtom = createFilterAtom();
+export const currencyFilterAtom = createFilterAtom();
+export const countryCodeFilterAtom = createFilterAtom();
+export const countryNameFilterAtom = createFilterAtom();
 
-// type this
-export const filterConfigs: FilterConfig[] = [
+const filterConfigs: FilterConfig[] = [
+  { atom: continentFilterAtom, field: "continent" },
+  { atom: currencyFilterAtom, field: "currency" },
+  { atom: countryCodeFilterAtom, field: "code" },
   {
-    atom: continentAtom,
-    field: "continent",
-  },
-  {
-    atom: currencyAtom,
-    field: "currency",
-  },
-  {
-    atom: countryCodeAtom,
-    field: "code",
-  },
-  {
-    atom: countryNameAtom,
+    atom: countryNameFilterAtom,
     field: "name",
     transform: capitalizeFirstLetter,
     queryOperator: (value: string) => ({ regex: value }),
@@ -63,27 +47,27 @@ export const filterAtom = atom((get) => {
   const filterValue: CountryFilterInput = {};
 
   filterConfigs.forEach((config) => {
-    const filter = get(config.atom);
-    if (filter) {
-      const transformedValue = config.transform
-        ? config.transform(filter)
-        : filter;
-      const query = config.queryOperator
-        ? config.queryOperator(transformedValue)
-        : { eq: transformedValue }; // Default equality
-      filterValue[config.field] = query;
+    const { atom, field, transform, queryOperator } = config;
+    const value = get(atom);
+    if (!value) {
+      return;
     }
+    const transformedValue = transform ? transform(value) : value;
+    const query = queryOperator
+      ? queryOperator(transformedValue)
+      : { eq: transformedValue };
+    filterValue[field] = query;
   });
 
   return filterValue;
 });
 
 export const useResetFilters = () => {
-  const setContinent = useSetAtom(continentAtom);
-  const setCurrency = useSetAtom(currencyAtom);
-  const setCountryCode = useSetAtom(countryCodeAtom);
-  const setCountryName = useSetAtom(countryNameAtom);
-  const setCurrentPage = useSetAtom(currentPageAtomWithUpdateSearchParams);
+  const setContinent = useSetAtom(continentFilterAtom);
+  const setCurrency = useSetAtom(currencyFilterAtom);
+  const setCountryCode = useSetAtom(countryCodeFilterAtom);
+  const setCountryName = useSetAtom(countryNameFilterAtom);
+  const setCurrentPage = useSetAtom(setCurrentPageAtom);
 
   return () => {
     setContinent("");

@@ -1,10 +1,8 @@
 import { useAtom } from "jotai";
-import { currentPageAtomWithUpdateSearchParams } from "../../../lib/paginationAtoms";
+import { setCurrentPageAtom } from "../../../lib/paginationAtoms";
 
 export const PrevNextControls = ({ totalPages }: { totalPages: number }) => {
-  const [currentPage, setCurrentPage] = useAtom(
-    currentPageAtomWithUpdateSearchParams
-  );
+  const [currentPage, setCurrentPage] = useAtom(setCurrentPageAtom);
 
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {

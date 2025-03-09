@@ -6,7 +6,7 @@ import { getQueryParams } from "../utils/getQueryParams";
 export const currentPageAtom = atom<number>(getQueryParams().page);
 export const perPageAtom = atom<PerPageOptions>(getQueryParams().pageSize);
 
-export const perPageAtomWithUpdateSearchParams = atom(
+export const setPerPageAtom = atom(
   (get) => get(perPageAtom),
   (_, set, newPerPage: PerPageOptions) => {
     set(perPageAtom, newPerPage);
@@ -19,7 +19,7 @@ export const perPageAtomWithUpdateSearchParams = atom(
   }
 );
 
-export const currentPageAtomWithUpdateSearchParams = atom(
+export const setCurrentPageAtom = atom(
   (get) => get(currentPageAtom),
   (get, set, newCurrentPage: number) => {
     set(currentPageAtom, newCurrentPage);

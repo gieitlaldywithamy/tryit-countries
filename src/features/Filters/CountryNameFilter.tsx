@@ -9,6 +9,7 @@ export const CountryNameFilter = () => {
   const [, setCountryNameFilter] = useAtom(countryNameFilterAtom);
 
   const debouncedValue = useDebounce(localCountryName);
+
   const handleFilterChange = (event: ChangeEvent<HTMLInputElement>) => {
     const newCountryCode = event.target.value;
     setLocalCountryName(newCountryCode);

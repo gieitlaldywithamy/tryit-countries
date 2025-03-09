@@ -1,7 +1,7 @@
-import { ContinentSelect } from "./features/Filters/ContinentSelect";
-import { CountryCode } from "./features/Filters/CountryCode";
-import { CountryNameFilter } from "./features/Filters/CountryName";
-import { CurrencySelect } from "./features/Filters/CurrencySelect";
+import { ContinentSelectFilter } from "./features/Filters/ContinentSelectFilter";
+import { CountryCodeFilter } from "./features/Filters/CountryCodeFilter";
+import { CountryNameFilter } from "./features/Filters/CountryNameFilter";
+import { CurrencySelectFilter } from "./features/Filters/CurrencySelectFilter";
 import { CountriesTableContainer } from "./features/CountryTable/CountryTableContainer";
 import { ErrorBoundary as ReactErrorBoundary } from "react-error-boundary";
 import { ErrorMessage } from "./components/ErrorMessage";
@@ -12,11 +12,11 @@ function App() {
       <h1 className="text-2xl font-bold mb-8 text-center">Country Finder</h1>
       <ReactErrorBoundary FallbackComponent={ErrorMessage}>
         <div className="flex gap-4 mb-2">
-          <ContinentSelect />
-          <CurrencySelect />
+          <ContinentSelectFilter />
+          <CurrencySelectFilter />
         </div>
         <div className="flex gap-4">
-          <CountryCode />
+          <CountryCodeFilter />
           <CountryNameFilter />
         </div>
       </ReactErrorBoundary>

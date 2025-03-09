@@ -5,7 +5,7 @@ import { Suspense } from "react";
 import { LoadingSpinner } from "../../components/LoadingSpinner";
 import { Dropdown } from "../../components/Dropdown";
 
-export const ContinentSelect = () => {
+export const ContinentSelectFilter = () => {
   const { error, data } = useSuspenseQuery(GET_CONTINENTS);
 
   if (error) {

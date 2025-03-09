@@ -1,13 +1,13 @@
 import { useAtom } from "jotai";
 import { useCallback } from "react";
-import { perPageAtomWithUpdateSearchParams } from "../../../lib/paginationAtoms";
+import { setPerPageAtom } from "../../../lib/paginationAtoms";
 import {
   PAGINATION_PAGE_SIZE_OPTIONS,
   PerPageOptions,
 } from "../../../utils/constants";
 
 export const PageSizeSelector = () => {
-  const [perPage, setPerPage] = useAtom(perPageAtomWithUpdateSearchParams);
+  const [perPage, setPerPage] = useAtom(setPerPageAtom);
 
   const handlePageSizeChange = useCallback(
     (event: React.ChangeEvent<HTMLSelectElement>) => {
