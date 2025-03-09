@@ -8,10 +8,10 @@ npm run dev
 ```
 
 Notes:
-I've used Jotai rather than Recoil (Recoil doesn't seem to support React 19). Additionally, I've also not used Formik.
-I've not included the Select Search Type Radio buttons as it wasn't on the requirements (so overlooked) and personally I find the user experience of changing what filters can be used a bit unintuitive.
-Clearing filters doesn't clear the search inputs, I couldn't make a decision on this.
-Note I haven't used graphql in years and never used jotai before so I'm unsure if I've architectured this well - I timeboxed this and I do not think it is in a PRable state. I've made the assumption Apollo Client does caching out of the box!
+ - I've used Jotai rather than Recoil (Recoil doesn't seem to support React 19, Jotai has a similar philosophy). Additionally, I've also not used Formik.
+- I've not included the Select Search Type Radio buttons as it wasn't on the requirements (so overlooked) and personally I find the user experience of changing what filters can be used a bit unintuitive.
+- Clearing filters doesn't clear the search inputs, this is a bug and fixable with Jotai atoms (either through using a debounced atom or another atom that is used purely for filter input display and keeping the filter the query is searched on separate, the bug is caused by me creating a local state variable so the user input doesn't lag)
+- Note I haven't used graphql in years and never used jotai before so I'm unsure if I've architectured this well - I timeboxed this and I do not think it is in a PRable state. I've made the assumption Apollo Client does caching out of the box!
 Error Boundaries could be well well improved.
 
 ## TODO
